@@ -45,7 +45,7 @@ public class HlavniProgram {
         // TODO: Sem vepište svůj program
         while (jerry.isAlive()) {
             jdiZaJerrym();
-            vyhniSeStromu();
+
         }
 
     }
@@ -83,105 +83,107 @@ public class HlavniProgram {
         return new Point(random.nextInt(SIRKA_OKNA), random.nextInt(VYSKA_OKNA));
     }
 
-    private void najdiPozici() {
-        int jx = jerry.getX();
-        int jy = jerry.getY();
-        int tx = tom.getX();
-        int ty = tom.getY();
+    private void jdiZaJerrym() {
+        int rozdilSouradnicX = (tom.getX() - jerry.getX());
+        int rozdilSouradnicY = (tom.getY() - jerry.getY());
+
+        if (rozdilSouradnicX < 0) {
+            otocSeVpravo();
+            tom.moveForward(Math.abs(rozdilSouradnicX));
+        } else if (rozdilSouradnicX > 0) {
+            otocSeVlevo();
+            tom.moveForward(Math.abs(rozdilSouradnicX));
+        }
+        if (rozdilSouradnicY < 0) {
+            otocSeDolu();
+            tom.moveForward(Math.abs(rozdilSouradnicY));
+        } else if (rozdilSouradnicY > 0) {
+            otocSeNahoru();
+            tom.moveForward(Math.abs(rozdilSouradnicY));
+        }
 
 
     }
 
     private void otocSeVpravo() {
-        if (tom.getOrientation() == PlayerOrientation.RIGHT) {
+        if (tom.getOrientation() == PlayerOrientation.LEFT) {
             tom.turnRight();
-            tom.moveForward();
-        }
-        if (tom.getOrientation() == PlayerOrientation.UP){
             tom.turnRight();
         }
-        if (tom.getOrientation() == PlayerOrientation.DOWN){
+        else if (tom.getOrientation() == PlayerOrientation.UP) {
             tom.turnRight();
+
+        } else if (tom.getOrientation() == PlayerOrientation.DOWN) {
+            tom.turnLeft();
         }
+
+
     }
 
     private void otocSeVlevo() {
-        if (tom.getOrientation() == PlayerOrientation.LEFT) {
+        if (tom.getOrientation() == PlayerOrientation.RIGHT) {
             tom.turnLeft();
-            tom.moveForward();
-        }
-        if (tom.getOrientation() == PlayerOrientation.UP){
             tom.turnLeft();
-        }
-        if (tom.getOrientation() == PlayerOrientation.DOWN){
-            tom.turnLeft();
-        }
-    }
 
-    private void otocSeDolu() {
-        if (tom.getOrientation() == PlayerOrientation.DOWN) {
+        } else if (tom.getOrientation() == PlayerOrientation.UP) {
+            tom.turnLeft();
+
+
+        } else if (tom.getOrientation() == PlayerOrientation.DOWN) {
             tom.turnRight();
-            tom.moveForward();
-        }
 
-        if (tom.getOrientation() == PlayerOrientation.LEFT){
-            tom.turnLeft();
-        }
-        if (tom.getOrientation() == PlayerOrientation.RIGHT){
-            tom.turnLeft();
+
+
         }
 
     }
+
 
     private void otocSeNahoru() {
-        if (tom.getOrientation() == PlayerOrientation.UP) {
+        if (tom.getOrientation() == PlayerOrientation.DOWN) {
+            tom.turnLeft();
+            tom.turnLeft();
+
+        } else if (tom.getOrientation() == PlayerOrientation.LEFT) {
             tom.turnRight();
-            tom.moveForward();
-        }
 
-        if (tom.getOrientation() == PlayerOrientation.LEFT){
-            tom.turnLeft();
-        }
-        if (tom.getOrientation() == PlayerOrientation.RIGHT){
+        } else if (tom.getOrientation() == PlayerOrientation.RIGHT) {
             tom.turnLeft();
         }
 
-    }
+
+    }private void otocSeDolu() {
+        if (tom.getOrientation() == PlayerOrientation.UP) {
+            tom.turnLeft();
+            tom.turnLeft();
 
 
-    private void jdiZaJerrym() {
-        int rozdilSouradniceX = tom.getX() - jerry.getX();
-        {
-            if (rozdilSouradniceX < 0) {
-                otocSeVpravo();
-                tom.moveForward(Math.abs(rozdilSouradniceX));
+        } else if (tom.getOrientation() == PlayerOrientation.LEFT) {
+            tom.turnLeft();
 
-            } else if (rozdilSouradniceX > 0) {
-                otocSeVlevo();
-                tom.moveForward(Math.abs(rozdilSouradniceX));
+        } else if (tom.getOrientation() == PlayerOrientation.RIGHT) {
+            tom.turnRight();
 
-            }
-        }
-        int rozdilSouradniceY = tom.getY() - jerry.getY();
-        {
-            if (rozdilSouradniceY < 0) {
-                otocSeDolu();
-                tom.moveForward(Math.abs(rozdilSouradniceY));
-
-            } else if (rozdilSouradniceY > 0) {
-                otocSeNahoru();
-                tom.moveForward(Math.abs(rozdilSouradniceY));
-
-            }
         }
     }
 
-    public void vyhniSeStromu(){
-        tom.isPossibleToMoveForward();
+    private void vyhniSeStromu(){
+
         tom.turnLeft();
         tom.moveForward();
-        tom.turnRight();
+        tom.turnLeft();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
